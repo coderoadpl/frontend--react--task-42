@@ -1,34 +1,31 @@
 import React from 'react'
 
 class ToUnmount extends React.Component {
+  intervalId = null
+
   state = {
-    intervalId: null,
     date: (new Date()).toString()
   }
 
   componentDidMount () {
     console.log('componentDidMount')
 
-    const intervalId = setInterval(
+    this.intervalId = setInterval(
       () => {
         console.log('interval')
         this.setState(() => ({
           date: (new Date()).toString()
         }))
       },
-      5000
+      1000
     )
-
-    this.setState(() => ({
-      intervalId
-    }))
   }
 
   componentWillUnmount () {
     console.log('componentWillUnmount')
 
     // this it a good place to clear effects
-    clearInterval(this.state.intervalId)
+    clearInterval(this.intervalId)
   }
 
   render () {
